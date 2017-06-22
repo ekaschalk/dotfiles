@@ -1,0 +1,2 @@
+#!/bin/sh
+feh  --bg-fill '/root/Pictures/mrrobot.png'
