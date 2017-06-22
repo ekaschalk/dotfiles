@@ -1,0 +1,169 @@
+# font
+font pango:Hack 8
+hide_edge_borders both
+
+# windows key (dip switch 1 must be on)
+set $mod Mod4
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# Applications
+bindsym $mod+Return exec emacs
+bindsym $mod+Shift+Return exec firefox
+bindsym $mod+d exec dmenu_run
+bindsym $mod+Shift+q kill
+
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# split in horizontal orientation
+bindsym $mod+- split h
+
+# split in vertical orientation
+bindsym $mod+= split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+# bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+# bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+# focus the child container
+#bindsym $mod+d focus child
+
+# switch to workspace
+bindsym $mod+1 workspace ""
+bindsym $mod+2 workspace ""
+bindsym $mod+3 workspace ""
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+0 workspace 10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace ""
+bindsym $mod+Shift+2 move container to workspace ""
+bindsym $mod+Shift+3 move container to workspace ""
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+0 move container to workspace 10
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        bindsym h resize shrink width 7 px or 7 ppt
+        bindsym j resize grow height 7 px or 7 ppt
+        bindsym k resize shrink height 7 px or 7 ppt
+        bindsym l resize grow width 7 px or 7 ppt
+
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+bindsym $mod+Shift+a exec "emacs; resize grow width 7 px"
+
+bindsym $mod+r mode "resize"
+
+bindsym Mod1+space          mode $do
+mode $do {
+     # movement
+     bindsym h focus left; mode "default"
+     bindsym j focus down; mode "default"
+     bindsym k focus up; mode "default"
+     bindsym l focus right; mode "default"
+
+     bindsym 1 workspace ""; mode "default"
+     bindsym 2 workspace ""; mode "default"
+     bindsym 3 workspace ""; mode "default"
+
+     bindsym q             mode "default"
+     bindsym space         mode "default"
+     bindsym Return        mode "default"
+     bindsym Escape        mode "default"
+}
+
+bindsym Mod1+Shift+space          mode $transient
+mode $transient {
+     # movement
+     bindsym h focus left
+     bindsym j focus down
+     bindsym k focus up
+     bindsym l focus right
+
+     bindsym 1 workspace ""
+     bindsym 2 workspace ""
+     bindsym 3 workspace ""
+
+     # Many ways to exit state
+     bindsym q             mode "default"
+     bindsym space         mode "default"
+     bindsym Return        mode "default"
+     bindsym Escape        mode "default"
+}
+
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+bar {
+      colors {
+          # Whole color settings
+          background #000000
+          statusline #ffffff
+          separator  #666666
+
+          # Type             border  background font
+          focused_workspace  #008fff #007fff #ffffff
+          active_workspace   #333333 #5f676a #ffffff
+          inactive_workspace #333333 #222222 #888888
+          urgent_workspace   #aa0000 #990000 #ffffff
+        }
+        font pango:Hack 10
+        # i3bar position
+        status_command i3status -c ~/.config/i3/i3status.conf
+}
+
+exec --no-startup-id feh --bg-fill ~/Pictures/mrrobot.png
+
+# remove title bars
+new_window 1pixel
+for_window [class="^.*"] border pixel 3
